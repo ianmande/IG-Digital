@@ -1,0 +1,4 @@
+.auth-container {
+  @apply grid min-h-screen max-h-screen items-center;
+  grid-template-rows: 1fr auto;
+}
