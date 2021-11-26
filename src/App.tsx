@@ -4,15 +4,20 @@
 import RoutesContainer from 'components/RoutesContainer'
 
 // Views
-import { Home } from 'views/Home'
+import { CreateAccount } from 'views/CreateAccount'
 import { Login } from 'views/Login'
+import { Home } from 'views/Home'
 
 // Contants
 import { allRoutes } from 'config/routes'
 
+// Style
+import 'assets/styles/styles.css'
+
 const views = {
   Home,
   Login,
+  CreateAccount,
 }
 
 function App() {

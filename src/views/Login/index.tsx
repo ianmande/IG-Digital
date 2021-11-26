@@ -1,10 +1,10 @@
 // Components
 import { AuthContainer } from 'components/containers/AuthContainer'
 import { LoginForm } from './parts/LoginForm'
+import { Image } from 'components/Image'
 
 // Statics
 import brandLogin from 'assets/images/social_bio.svg'
-import { Image } from 'components/Image'
 
 export const Login: React.FC = () => {
   return (
