@@ -6,7 +6,7 @@ const PREFIX = 'auth'
 const authAdapter = createEntityAdapter<Auth>({})
 
 const initialState: Auth = {
-  isAuthenticated: true,
+  isAuthenticated: false,
   user: {
     email: '',
     profile_image: '',
