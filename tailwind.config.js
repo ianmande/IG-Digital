@@ -3,7 +3,19 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
-    colors: {},
+    colors: {
+      black: {
+        DEFAULT: '#181818',
+        light: '#31323B',
+        lighter: '#181818',
+      },
+      pink: {
+        DEFAULT: '#FC0B7B',
+      },
+      white: {
+        DEFAULT: '#FFF',
+      },
+    },
     fontFamily: {
       lato: ['Lato'],
     },
