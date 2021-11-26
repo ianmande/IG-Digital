@@ -2,6 +2,9 @@
 import { ReactElement } from 'react'
 import { Container, Paper } from '@mui/material'
 
+// Components
+import { Copyright } from 'components'
+
 interface AuthContainerProps {
   brandLogin?: ReactElement<any, any> | React.ReactNode
   branCreate?: ReactElement<any, any> | React.ReactNode
@@ -13,16 +16,21 @@ export const AuthContainer: React.FC<AuthContainerProps> = ({
   children,
 }) => {
   return (
-    <div className="flex min-h-screen max-h-screen items-center">
+    <div className="auth-container">
       <Container>
-        <div className="grid grid-cols-2 rounded-md border-white bg-black-light overflow-hidden">
-          {brandLogin && <div className="max-w-md p-4">{brandLogin}</div>}
-          <Paper className="bg-black-light">
+        <div className="grid grid-cols-2 justify-items-center align-center rounded-md border-white bg-black-light overflow-hidden">
+          {brandLogin && <BrandWrapper>{brandLogin}</BrandWrapper>}
+          <Paper className="bg-black-light p-5">
             <div>{children}</div>
           </Paper>
-          {branCreate && <div className="max-w-md p-4">{branCreate}</div>}
+          {branCreate && <BrandWrapper>{branCreate}</BrandWrapper>}
         </div>
       </Container>
+      <Copyright />
     </div>
   )
 }
+
+const BrandWrapper: React.FC = ({ children }) => (
+  <div className="max-w-md w-full p-5">{children}</div>
+)

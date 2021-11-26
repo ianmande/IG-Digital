@@ -1,7 +1,7 @@
 // Vendors
 
 // Components
-import RoutesContainer from 'components/RoutesContainer'
+import RoutesContainer from 'components/containers/RoutesContainer'
 
 // Views
 import { CreateAccount } from 'views/CreateAccount'

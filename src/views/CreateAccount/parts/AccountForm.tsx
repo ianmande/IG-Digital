@@ -2,6 +2,7 @@
 import { useForm } from 'react-hook-form'
 import { User } from 'types/app'
 import { TextInput } from 'components'
+import { Button } from '@mui/material'
 
 export const AccountForm = () => {
   const { handleSubmit, control } = useForm<User>()
@@ -19,6 +20,8 @@ export const AccountForm = () => {
           control={control}
         />
         <TextInput name="avatar" label="Avatar" control={control} />
+
+        <Button type="submit">Crear Cuenta</Button>
       </form>
     </section>
   )
