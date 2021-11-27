@@ -16,7 +16,7 @@ import { setItemLocal } from 'utils'
 import { createToken } from 'utils/jwt'
 
 // Constants
-import { localKey } from 'config/constants'
+import { localKey, localKeyUsers } from 'config/constants'
 
 interface IUsers extends ServerStatus {
   users: User[]
@@ -47,7 +47,7 @@ const initialState: IUsers = {
 
 export const createAccount = createAsyncThunk(
   `${PREFIX}/CREAR-CUENTA`,
-  async (user: User, { getState, dispatch }: ThunkAPI) => {
+  async (user: User, { getState }: ThunkAPI) => {
     const {
       userReducer: { users },
     }: RootState = getState()
@@ -80,9 +80,12 @@ export const userSlice = createSlice({
     build.addCase(createAccount.fulfilled, (state, action: IAction) => {
       state.isLoading = initialState.isLoading
       state.users = [...state.users, action.payload]
+
+      setItemLocal(localKeyUsers, state.users)
     })
     build.addCase(createAccount.rejected, (state) => {
       state.isLoading = initialState.isLoading
+
       state.serverErrors = true
     })
   },
