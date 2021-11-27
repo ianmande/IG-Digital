@@ -1,12 +1,25 @@
 //Vendors
-import { useForm } from 'react-hook-form'
-import { User } from 'types/app'
-import { TextInput } from 'components'
 import { Button } from '@mui/material'
+import { useDispatch } from 'react-redux'
+import { useForm } from 'react-hook-form'
+
+// Components
+import { TextInput } from 'components'
+
+// Types
+import { User } from 'types/app'
+
+// Store
+import { createAccount } from 'reducers/userSlice'
 
 export const AccountForm = () => {
+  const dispatch = useDispatch()
+
   const { handleSubmit, control } = useForm<User>()
-  const onSumbit = handleSubmit((data) => console.log(data))
+  const onSumbit = handleSubmit((data) => {
+    console.log('new Account', data)
+    dispatch(createAccount(data))
+  })
 
   return (
     <section>
