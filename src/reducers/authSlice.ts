@@ -95,7 +95,7 @@ export const authSlice = createSlice({
     })
     build.addCase(login.fulfilled, (state, action: IAction) => {
       state.isLoading = initialState.isLoading
-
+      state.isAuthenticated = true
       state.user = action.payload
     })
     build.addCase(login.rejected, (state) => {

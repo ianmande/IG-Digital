@@ -1,3 +1,6 @@
+// Vendors
+import { ThemeProvider } from '@mui/material'
+
 // Components
 import RoutesContainer from 'components/containers/RoutesContainer'
 
@@ -8,6 +11,7 @@ import { Home } from 'views/Home'
 
 // Contants
 import { allRoutes } from 'config/routes'
+import { theme } from 'config/customTheme'
 
 // Style
 import 'assets/styles/styles.css'
@@ -21,7 +25,9 @@ const views = {
 function App() {
   return (
     <>
-      <RoutesContainer listRoutes={allRoutes} views={views} />
+      <ThemeProvider theme={theme}>
+        <RoutesContainer listRoutes={allRoutes} views={views} />
+      </ThemeProvider>
     </>
   )
 }

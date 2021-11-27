@@ -11,7 +11,7 @@ interface TextInputProps<T> extends UseControllerProps<T> {
 }
 
 export const TextInput = <T extends FieldValues>(props: TextInputProps<T>) => {
-  const { field } = useController<T>(props)
+  const { field, fieldState } = useController<T>(props)
 
   return (
     <Controller
@@ -23,6 +23,8 @@ export const TextInput = <T extends FieldValues>(props: TextInputProps<T>) => {
           variant="outlined"
           onChange={onChange}
           value={value || ''}
+          helperText={fieldState?.error?.message}
+          error={fieldState.error ? true : false}
         />
       )}
     />
