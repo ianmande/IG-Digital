@@ -1,13 +1,14 @@
 //Vendors
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Controller, useForm } from 'react-hook-form'
-import { Button, TextField } from '@mui/material'
+import { useForm } from 'react-hook-form'
+import { Button } from '@mui/material'
 
 //Types
 import { User } from 'types/app'
 import { RootState } from 'store'
 import { login } from 'reducers/authSlice'
+import { TextInput } from 'components'
 
 export const LoginForm = () => {
   const dispatch = useDispatch()
@@ -28,18 +29,12 @@ export const LoginForm = () => {
     <section>
       <h1 className="font-bold font-lato">IG DIGITAL</h1>
       <form onSubmit={onSumbit}>
-        <Controller
-          name={'username'}
+        <TextInput
+          label="Nombre de usuario"
+          name="username"
           control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              label="Nombre de usuario"
-              variant="outlined"
-              onChange={onChange}
-              value={value || ''}
-            />
-          )}
         />
+
         <Button type="submit">Iniciar Sesion</Button>
       </form>
     </section>
