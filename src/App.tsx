@@ -1,5 +1,3 @@
-// Vendors
-
 // Components
 import RoutesContainer from 'components/containers/RoutesContainer'
 
