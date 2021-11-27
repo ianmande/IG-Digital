@@ -1,40 +1,33 @@
-import {
-  createAsyncThunk,
-  createEntityAdapter,
-  createSlice,
-} from '@reduxjs/toolkit'
+//Vendors
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
+
+//Types
 import { User } from 'types/app'
 
-const PREFIX = 'users'
-const userAdapter = createEntityAdapter<{ users: User[] }>({})
+interface IUsers {
+  isLoading: boolean
+  users: User[]
+}
 
-const initialState: { users: User[] } = {
+const PREFIX = 'users'
+
+const userAdapter = createEntityAdapter<IUsers>({})
+
+const initialState: IUsers = {
+  isLoading: false,
   users: [
     {
-      username: '',
-      name: '',
-      surname: '',
+      username: 'ianmdz',
+      name: 'ian',
+      surname: 'mande',
     },
   ],
 }
-
-/**
- * Iniciar sesion
- * @param username: string
- */
-export const login = createAsyncThunk(
-  `${PREFIX}/INICIAR-SESION`,
-  async (username: Part<User, 'username'>) => {
-    try {
-    } catch (error) {}
-  }
-)
 
 export const userSlice = createSlice({
   name: PREFIX,
   initialState: userAdapter.getInitialState(initialState),
   reducers: {},
-  extraReducers: {},
 })
 
 //Actions
