@@ -15,8 +15,8 @@ import { IAction } from 'types/app'
 import { Auth } from 'types/auth'
 
 // Utils
-import { setItemLocal } from 'utils'
-import { createToken } from 'utils/jwt'
+import { removeItemLocal, searchItemLocal, setItemLocal } from 'utils'
+import { createToken, decodeToken } from 'utils/jwt'
 
 const PREFIX = 'auth'
 const authAdapter = createEntityAdapter<Auth>({})
@@ -48,7 +48,7 @@ export const login = createAsyncThunk(
     const isUser = users.find((user) => user.username === username)
 
     if (isUser) {
-      const token = await createToken({ username: isUser.surname })
+      const token = await createToken({ username: isUser.username })
 
       setItemLocal(localKey, {
         ...isUser,
@@ -61,6 +61,25 @@ export const login = createAsyncThunk(
     }
   }
 )
+
+/**
+ * Cerrar sesion
+ */
+export const fetchAuthLogout = createAsyncThunk(`${PREFIX}/logout`, () =>
+  removeItemLocal(localKey)
+)
+
+/**
+ * Verificar si el usuario sigue
+ * logeado cuando se recarga el navegador
+ */
+export const browserReload = createAsyncThunk(`${PREFIX}/browserReload`, () => {
+  const access_app = searchItemLocal(localKey)
+
+  const token: any = decodeToken(access_app?.token)
+
+  console.log('token', token)
+})
 
 export const authSlice = createSlice({
   name: PREFIX,
@@ -82,6 +101,11 @@ export const authSlice = createSlice({
     build.addCase(login.rejected, (state) => {
       state.isLoading = initialState.isLoading
       state.serverErrors = true
+    })
+    build.addCase(fetchAuthLogout.fulfilled, (state) => {
+      state.isLoading = false
+      state.isAuthenticated = false
+      state.user = initialState.user
     })
   },
 })
