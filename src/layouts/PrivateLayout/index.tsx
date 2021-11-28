@@ -1,6 +1,9 @@
 // @Vendors
 import React from 'react'
 
+// Components
+import { Header } from './parts/Header'
+
 interface Props {
   readonly title: string
 }
@@ -10,5 +13,10 @@ export const PrivateLayout: React.FC<Props> = ({
   children,
 }) => {
   document.title = title
-  return <main className="">{children}</main>
+  return (
+    <>
+      <Header />
+      <main className="">{children}</main>
+    </>
+  )
 }
