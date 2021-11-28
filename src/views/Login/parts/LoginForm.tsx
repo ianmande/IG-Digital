@@ -2,14 +2,13 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-import { Button, Stack, InputAdornment, Typography } from '@mui/material'
-//import LoadingButton from '@mui/lab/LoadingButton'
+import { Stack, InputAdornment, Typography } from '@mui/material'
+import LoadingButton from '@mui/lab/LoadingButton'
 
 import AccountCircle from '@mui/icons-material/AccountCircle'
 
 //Types
 import { User } from 'types/app'
-import { login } from 'reducers/authSlice'
 
 // Components
 import { TextInput } from 'components'
@@ -19,10 +18,22 @@ import { formHandlerErrorMenssage, errorMessages } from 'utils/form'
 
 // Store
 import { RootState } from 'store'
+import { clearErrors, login } from 'reducers/authSlice'
+
+// Hooks
+import { useToast } from 'hooks/useToast'
+import { useEffect } from 'react'
 
 export const LoginForm = () => {
   const dispatch = useDispatch()
-  const { isLoading } = useSelector((state: RootState) => state.authReducer)
+  const { isLoading, serverErrors } = useSelector(
+    (state: RootState) => state.authReducer
+  )
+
+  const { Toast, openToast } = useToast({
+    messages: 'Este usuario no esta registrado',
+    severity: 'error',
+  })
 
   const {
     handleSubmit,
@@ -31,11 +42,17 @@ export const LoginForm = () => {
   } = useForm<Pick<User, 'username'>>()
 
   const onSumbit = handleSubmit(({ username }) => {
+    dispatch(clearErrors())
     dispatch(login(username))
   })
 
+  useEffect(() => {
+    if (serverErrors) openToast()
+  }, [serverErrors, openToast])
+
   return (
     <form onSubmit={onSumbit} className="mt-4 py-4 ">
+      {Toast}
       <Stack spacing={4}>
         <TextInput
           label="Nombre de usuario"
@@ -55,13 +72,9 @@ export const LoginForm = () => {
           }}
         />
 
-        {/* <LoadingButton type="submit" variant="contained">
-          Submit
-        </LoadingButton> */}
-
-        <Button type="submit" variant="contained">
+        <LoadingButton loading={isLoading} type="submit" variant="contained">
           Iniciar Sesion
-        </Button>
+        </LoadingButton>
       </Stack>
       <div className="mt-4">
         <Typography align="center" variant="body2">
