@@ -17,6 +17,7 @@ import { createToken } from 'utils/jwt'
 
 // Constants
 import { localKey, localKeyUsers } from 'config/constants'
+import { authenticated } from './authSlice'
 
 interface IUsers extends ServerStatus {
   users: User[]
@@ -47,7 +48,7 @@ const initialState: IUsers = {
 
 export const createAccount = createAsyncThunk(
   `${PREFIX}/CREAR-CUENTA`,
-  async (user: User, { getState }: ThunkAPI) => {
+  async (user: User, { getState, dispatch }: ThunkAPI) => {
     const {
       userReducer: { users },
     }: RootState = getState()
@@ -61,6 +62,8 @@ export const createAccount = createAsyncThunk(
         ...user,
         token,
       })
+
+      dispatch(authenticated())
 
       return user
     } else {
