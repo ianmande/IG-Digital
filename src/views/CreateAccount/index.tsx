@@ -7,7 +7,10 @@ import brandLogin from 'assets/images/add_friends.svg'
 
 export const CreateAccount = () => {
   return (
-    <AuthContainer branCreate={<Image source={brandLogin} alt="" />}>
+    <AuthContainer
+      branCreate={<Image source={brandLogin} alt="" />}
+      title="Crear Cuenta"
+    >
       <AccountForm />
     </AuthContainer>
   )

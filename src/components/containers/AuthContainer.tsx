@@ -1,27 +1,41 @@
 // Vendors
 import { ReactElement } from 'react'
-import { Container, Paper } from '@mui/material'
+import { Container, Paper, Typography, Grow } from '@mui/material'
 
 // Components
-import { Copyright } from 'components'
+import { AppLogo, Copyright } from 'components'
 
 interface AuthContainerProps {
   brandLogin?: ReactElement<any, any> | React.ReactNode
   branCreate?: ReactElement<any, any> | React.ReactNode
+  title: string
 }
 
 export const AuthContainer: React.FC<AuthContainerProps> = ({
   brandLogin,
   branCreate,
   children,
+  title,
 }) => {
   return (
     <div className="auth-container">
+      <div className="mx-auto p-4">
+        <AppLogo className="max-w-sm" />
+      </div>
       <Container>
-        <div className="grid grid-cols-2 justify-items-center align-center rounded-md border-white bg-black-light overflow-hidden">
+        <div className="mx-auto max-w-4xl grid sm:grid-cols-2 justify-items-center align-center rounded-md border-white bg-black-light overflow-hidden">
           {brandLogin && <BrandWrapper>{brandLogin}</BrandWrapper>}
-          <Paper className="bg-black-light p-5">
-            <div>{children}</div>
+          <Paper className="bg-black-light p-5 w-full" elevation={3}>
+            <section className="grid gap-6 h-full">
+              <Typography
+                align="center"
+                className="font-bold font-lato"
+                variant="h4"
+              >
+                {title}
+              </Typography>
+              {children}
+            </section>
           </Paper>
           {branCreate && <BrandWrapper>{branCreate}</BrandWrapper>}
         </div>
@@ -32,5 +46,9 @@ export const AuthContainer: React.FC<AuthContainerProps> = ({
 }
 
 const BrandWrapper: React.FC = ({ children }) => (
-  <div className="max-w-md w-full p-5">{children}</div>
+  <div className="hidden sm:block">
+    <Grow in timeout={1200} style={{ transformOrigin: '0 0 0' }}>
+      <div className="auth-brand">{children}</div>
+    </Grow>
+  </div>
 )

@@ -1,4 +1,12 @@
 .auth-container {
   @apply grid min-h-screen max-h-screen items-center;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr auto;
+}
+
+.auth-container-card {
+  @apply mx-auto max-w-4xl grid grid-cols-2 justify-items-center rounded-md border-white bg-black-light overflow-hidden;
+}
+
+.auth-brand {
+  @apply max-w-md w-full p-5;
 }
