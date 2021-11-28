@@ -51,7 +51,7 @@ export const login = createAsyncThunk(
       const token = await createToken({ username: isUser.username })
 
       setItemLocal(localKey, {
-        ...isUser,
+        user: isUser,
         token,
       })
 
@@ -73,18 +73,28 @@ export const fetchAuthLogout = createAsyncThunk(`${PREFIX}/logout`, () =>
  * Verificar si el usuario sigue
  * logeado cuando se recarga el navegador
  */
-export const browserReload = createAsyncThunk(`${PREFIX}/browserReload`, () => {
-  const access_app = searchItemLocal(localKey)
+export const browserReloadAuth = createAsyncThunk(
+  `${PREFIX}/browserReloadAuth`,
+  (params, { dispatch }) => {
+    const access_app = searchItemLocal(localKey)
 
-  const token: any = decodeToken(access_app?.token)
+    const token: any = decodeToken(access_app?.token)
 
-  console.log('token', token)
-})
+    if (token) {
+      return access_app.user
+    } else {
+      throw Error('No autenticado, por favor iniciar sesion')
+    }
+  }
+)
 
 export const authSlice = createSlice({
   name: PREFIX,
   initialState: authAdapter.getInitialState(initialState),
   reducers: {
+    clearErrors(state) {
+      state.serverErrors = false
+    },
     authenticated(state) {
       state.isAuthenticated = true
     },
@@ -110,11 +120,19 @@ export const authSlice = createSlice({
       state.isAuthenticated = false
       state.user = initialState.user
     })
+    build.addCase(browserReloadAuth.fulfilled, (state, action: IAction) => {
+      state.isAuthenticated = true
+      state.user = action.payload
+    })
+    build.addCase(browserReloadAuth.rejected, (state) => {
+      state.isAuthenticated = false
+      state.user = initialState.user
+    })
   },
 })
 
 //Actions
-export const { expiredAuth, authenticated } = authSlice.actions
+export const { expiredAuth, authenticated, clearErrors } = authSlice.actions
 
 // Reducer
 export default authSlice.reducer

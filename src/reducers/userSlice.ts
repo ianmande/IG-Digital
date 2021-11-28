@@ -12,7 +12,7 @@ import { ServerStatus } from 'types/serverStatus'
 import { ThunkAPI } from 'types/api'
 
 // Store
-import { setItemLocal } from 'utils'
+import { searchItemLocal, setItemLocal } from 'utils'
 import { createToken } from 'utils/jwt'
 
 // Constants
@@ -59,7 +59,7 @@ export const createAccount = createAsyncThunk(
       const token = await createToken({ username: user.username })
 
       setItemLocal(localKey, {
-        ...user,
+        user,
         token,
       })
 
@@ -68,6 +68,23 @@ export const createAccount = createAsyncThunk(
       return user
     } else {
       throw Error('El usuario ya existe')
+    }
+  }
+)
+
+/**
+ * Obtener los usuarios guardados en local store y guardarlos en el reducer
+ *
+ */
+export const browserReloadUsers = createAsyncThunk(
+  `${PREFIX}/browserReloadUsers`,
+  () => {
+    const users = searchItemLocal(localKeyUsers)
+
+    if (users) {
+      return users
+    } else {
+      throw Error('No hay usuario guardados')
     }
   }
 )
@@ -88,8 +105,10 @@ export const userSlice = createSlice({
     })
     build.addCase(createAccount.rejected, (state) => {
       state.isLoading = initialState.isLoading
-
       state.serverErrors = true
+    })
+    build.addCase(browserReloadUsers.fulfilled, (state, action: IAction) => {
+      state.users = action.payload
     })
   },
 })

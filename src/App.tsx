@@ -1,4 +1,6 @@
 // Vendors
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { ThemeProvider } from '@mui/material'
 
 // Components
@@ -16,6 +18,10 @@ import { theme } from 'config/customTheme'
 // Style
 import 'assets/styles/styles.css'
 
+// Store
+import { browserReloadAuth } from 'reducers/authSlice'
+import { browserReloadUsers } from 'reducers/userSlice'
+
 const views = {
   Home,
   Login,
@@ -23,6 +29,13 @@ const views = {
 }
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(browserReloadAuth())
+    dispatch(browserReloadUsers())
+  }, [dispatch])
+
   return (
     <>
       <ThemeProvider theme={theme}>
