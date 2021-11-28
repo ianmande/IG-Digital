@@ -22,7 +22,7 @@ export const TextInput = <T extends FieldValues>(props: TextInputProps<T>) => {
           label={props.label}
           variant="outlined"
           onChange={onChange}
-          value={value}
+          value={value || ''}
         />
       )}
     />

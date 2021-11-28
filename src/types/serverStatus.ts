@@ -1,5 +1,5 @@
 export type ServerStatus = {
-  loading: boolean
+  isLoading: boolean
   errorMessage: string | null
   serverErrors: boolean
   success: boolean

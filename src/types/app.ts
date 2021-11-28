@@ -1,3 +1,9 @@
+export type IAction = {
+  type: string
+  payload?: any
+  error?: any
+}
+
 export interface User {
   avatar?: string
   username: string
