@@ -1,42 +1,73 @@
 //Vendors
-import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { Button } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { Button, Stack, InputAdornment, Typography } from '@mui/material'
+//import LoadingButton from '@mui/lab/LoadingButton'
+
+import AccountCircle from '@mui/icons-material/AccountCircle'
 
 //Types
 import { User } from 'types/app'
-import { RootState } from 'store'
 import { login } from 'reducers/authSlice'
+
+// Components
 import { TextInput } from 'components'
+
+// Utils
+import { formHandlerErrorMenssage, errorMessages } from 'utils/form'
+
+// Store
+import { RootState } from 'store'
 
 export const LoginForm = () => {
   const dispatch = useDispatch()
+  const { isLoading } = useSelector((state: RootState) => state.authReducer)
 
-  const { isAuthenticated } = useSelector(
-    (state: RootState) => state.authReducer
-  )
-  const { handleSubmit, control } = useForm<Pick<User, 'username'>>()
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<Pick<User, 'username'>>()
 
   const onSumbit = handleSubmit(({ username }) => {
     dispatch(login(username))
   })
 
-  useEffect(() => {
-    console.log('isAuthenticated', isAuthenticated)
-  }, [isAuthenticated])
   return (
-    <section>
-      <h1 className="font-bold font-lato">IG DIGITAL</h1>
-      <form onSubmit={onSumbit}>
+    <form onSubmit={onSumbit} className="mt-4 py-4 ">
+      <Stack spacing={4}>
         <TextInput
           label="Nombre de usuario"
           name="username"
           control={control}
+          rules={{ required: true, minLength: 3, maxLength: 20 }}
+          helperText={formHandlerErrorMenssage({
+            messages: errorMessages,
+            typeError: errors?.username?.type,
+          })}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="end">
+                <AccountCircle />
+              </InputAdornment>
+            ),
+          }}
         />
 
-        <Button type="submit">Iniciar Sesion</Button>
-      </form>
-    </section>
+        {/* <LoadingButton type="submit" variant="contained">
+          Submit
+        </LoadingButton> */}
+
+        <Button type="submit" variant="contained">
+          Iniciar Sesion
+        </Button>
+      </Stack>
+      <div className="mt-4">
+        <Typography align="center" variant="body2">
+          ¿No tienes una cuenta? <Link to="/crear-cuenta">Regístrate</Link>
+        </Typography>
+      </div>
+    </form>
   )
 }

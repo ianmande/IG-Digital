@@ -8,7 +8,10 @@ import brandLogin from 'assets/images/social_bio.svg'
 
 export const Login: React.FC = () => {
   return (
-    <AuthContainer brandLogin={<Image source={brandLogin} alt="" />}>
+    <AuthContainer
+      brandLogin={<Image source={brandLogin} alt="" />}
+      title="Iniciar Sesión"
+    >
       <LoginForm />
     </AuthContainer>
   )
