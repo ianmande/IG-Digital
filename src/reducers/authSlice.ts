@@ -85,6 +85,9 @@ export const authSlice = createSlice({
   name: PREFIX,
   initialState: authAdapter.getInitialState(initialState),
   reducers: {
+    authenticated(state) {
+      state.isAuthenticated = true
+    },
     expiredAuth(state) {
       state.isAuthenticated = false
     },
@@ -111,7 +114,7 @@ export const authSlice = createSlice({
 })
 
 //Actions
-export const { expiredAuth } = authSlice.actions
+export const { expiredAuth, authenticated } = authSlice.actions
 
 // Reducer
 export default authSlice.reducer
