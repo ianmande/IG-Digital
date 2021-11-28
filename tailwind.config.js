@@ -18,6 +18,9 @@ module.exports = {
       white: {
         DEFAULT: '#FFF',
       },
+      blue: {
+        DEFAULT: '#3771C8',
+      },
     },
     fontFamily: {
       lato: ['Lato'],
