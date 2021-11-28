@@ -7,6 +7,7 @@ import { fetchAuthLogout } from 'reducers/authSlice'
 
 export const Home: React.FC = () => {
   const dispatch = useDispatch()
+
   return (
     <section>
       <h1>Home</h1>

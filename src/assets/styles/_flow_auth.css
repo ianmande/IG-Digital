@@ -9,5 +9,4 @@
 
 .auth-brand {
   @apply max-w-md w-full p-5;
-  min-height: 440px;
 }

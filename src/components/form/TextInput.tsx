@@ -17,8 +17,6 @@ interface TextInputProps<T> extends UseControllerProps<T> {
 export const TextInput = <T extends FieldValues>(props: TextInputProps<T>) => {
   const { field, fieldState } = useController<T>(props)
 
-  console.log(props.rules)
-
   return (
     <>
       <Controller

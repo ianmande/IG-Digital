@@ -1,5 +1,5 @@
 // Components
-import { AuthContainer } from 'components/containers/AuthContainer'
+import { AuthContainer } from 'components'
 import { LoginForm } from './parts/LoginForm'
 import { Image } from 'components/image/Image'
 
