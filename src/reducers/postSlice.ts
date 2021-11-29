@@ -11,12 +11,13 @@ import { RootState } from 'store'
 
 // Types
 import { ThunkAPI } from 'types/api'
-import { IAction } from 'types/app'
+import { IAction, ViewPost } from 'types/app'
 import { Post } from 'types/app'
 import { ServerStatus } from 'types/serverStatus'
 
 // Utils
 import { searchItemLocal, setItemLocal } from 'utils'
+import { foundPost } from 'utils/array'
 import { fetchAuthLogout } from './authSlice'
 
 interface PostsReducer extends ServerStatus {
@@ -94,6 +95,28 @@ export const browserReloadPosts = createAsyncThunk(
     } else {
       throw Error('No autenticado, por favor iniciar sesion')
     }
+  }
+)
+
+/**
+ * Verificar si el usuario sigue
+ * logeado cuando se recarga el navegador
+ */
+
+export const likeToPosts = createAsyncThunk(
+  `${PREFIX}/LIKE_TO_POSTS`,
+  (params: ViewPost, { getState, dispatch }: ThunkAPI) => {
+    const {
+      postReducer: { posts },
+    }: RootState = getState()
+
+    const postFound = posts.find((post) => foundPost(params, post))
+    const postFoundIndex = posts.findIndex((post) => foundPost(params, post))
+
+    console.log('postFound', posts.splice(postFoundIndex, 1))
+    console.log('postFound', postFound)
+
+    return
   }
 )
 

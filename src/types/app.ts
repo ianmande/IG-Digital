@@ -24,3 +24,5 @@ export interface Post {
 export interface Data {
   posts: Array<Post>
 }
+
+export type ViewPost = Pick<Post, 'image' | 'author' | 'message' | 'create_at'>
