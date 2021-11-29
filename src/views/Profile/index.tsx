@@ -28,7 +28,10 @@ export const Profile = () => {
           <div>
             <UserAvatar
               avatar={user?.avatar}
-              styles={{ width: '100%', height: '100%', maxWidth: '120px' }}
+              styles={{
+                width: '120px',
+                height: '120px',
+              }}
             />
           </div>
           <Typography variant="h5">

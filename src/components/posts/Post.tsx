@@ -53,7 +53,12 @@ function PostPublic({ image, author, create_at, message }: PostProps) {
           className="h-full rounded-xl"
           sx={{ maxHeight: { xs: 320 } }}
         />
-        <Like />
+        <Like
+          author={author}
+          create_at={create_at}
+          message={message}
+          image={image}
+        />
       </div>
 
       <CardContent>

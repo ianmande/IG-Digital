@@ -41,8 +41,6 @@ export const NewPostForm = () => {
 
   const onSumbit = handleSubmit((data) => {
     dispatch(createPost(data))
-
-    modalClose()
   })
 
   useEffect(() => {
@@ -50,9 +48,12 @@ export const NewPostForm = () => {
       openToast({
         message: 'Nuevo post creado con exito!',
         severity: 'success',
-        onCloseCallback: () => dispatch(clearServer()),
+        onCloseCallback: () => {
+          dispatch(clearServer())
+          modalClose()
+        },
       })
-  }, [success, openToast, dispatch])
+  }, [success, openToast, dispatch, modalClose])
 
   return (
     <div className="grid gap-10">

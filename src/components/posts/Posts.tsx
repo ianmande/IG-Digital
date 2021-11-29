@@ -19,7 +19,7 @@ export function Posts({ isLoading, posts }: PostsProps) {
         ? posts.map(({ author, create_at, image, message }, key) => (
             <PostPublic
               author={author}
-              create_at={`${create_at}`}
+              create_at={create_at}
               message={message}
               image={image}
               key={`${key}-${author.name}`}
