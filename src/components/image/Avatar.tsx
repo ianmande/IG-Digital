@@ -3,9 +3,20 @@ import { Avatar } from '@mui/material'
 import notAvatar from 'assets/images/image_broken.svg'
 
 interface UserAvatarProps {
-  avatar?: string
+  avatar: string | undefined
+  alt?: string
+  styles?: {}
 }
 
-export const UserAvatar = ({ avatar }: UserAvatarProps) => {
-  return <Avatar alt="Remy Sharp" src={avatar || notAvatar} />
+export const UserAvatar: React.FC<UserAvatarProps> = ({
+  avatar,
+  children,
+  alt = '',
+  styles,
+}) => {
+  return (
+    <Avatar alt={alt} src={avatar || notAvatar} sx={styles}>
+      {children}
+    </Avatar>
+  )
 }
