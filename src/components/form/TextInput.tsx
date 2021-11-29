@@ -12,6 +12,7 @@ interface TextInputProps<T> extends UseControllerProps<T> {
   helperText?: string | undefined
   size?: 'small' | 'medium'
   InputProps?: any
+  multiline?: boolean
 }
 
 export const TextInput = <T extends FieldValues>(props: TextInputProps<T>) => {
@@ -32,6 +33,9 @@ export const TextInput = <T extends FieldValues>(props: TextInputProps<T>) => {
               helperText={props.helperText || ''}
               error={fieldState.error ? true : false}
               size={props.size}
+              sx={{ borderColor: 'white' }}
+              rows={4}
+              multiline={props.multiline || false}
             />
           </>
         )}

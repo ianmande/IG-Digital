@@ -5,6 +5,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
 @import url('./_flow_auth.css');
 @import url('./_searcher.css');
+@import url('./_card.css');
+@import url('./_card.css');
+@import url('./_like.css');
 
 body {
   @apply bg-black text-white;
