@@ -1,33 +1,30 @@
 //Vendors
-import { useSelector } from 'react-redux'
 import { AppBar, Typography, Toolbar, Stack } from '@mui/material'
 import { Box } from '@mui/system'
 
 // Components
+import { AddPosts } from './AddPosts'
 import { AppLogo } from 'components'
-import { UserAvatar } from 'components/image/Avatar'
+import { UserActive } from './UserActive'
 import { Searcher } from './Search'
 
 // Hooks
 import { useMobile } from 'hooks/useMobile'
 
-// Store
-import { RootState } from 'store'
-
 export const Header = () => {
-  const { avatar } = useSelector((state: RootState) => state.authReducer.user)
   const isMobile = useMobile()
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="secondary">
+      <AppBar position="fixed" color="secondary" className="top-0">
         <Toolbar>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             <AppLogo />
           </Typography>
-          <Stack direction="row" spacing={3}>
+          <Stack direction="row" spacing={0} className="gap-4">
             {!isMobile && <Searcher />}
-            <UserAvatar avatar={avatar} />
+            <AddPosts />
+            <UserActive />
           </Stack>
         </Toolbar>
       </AppBar>
