@@ -16,7 +16,7 @@ export interface Post {
   message: string
   likes?: Array<User>
   author: User
-  create_at: Date
+  create_at: Date | string
   location: string
   status: 'drafted' | 'deleted' | 'published'
 }

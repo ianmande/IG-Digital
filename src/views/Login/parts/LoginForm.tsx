@@ -30,10 +30,7 @@ export const LoginForm = () => {
     (state: RootState) => state.authReducer
   )
 
-  const { Toast, openToast } = useToast({
-    messages: 'Este usuario no esta registrado',
-    severity: 'error',
-  })
+  const { Toast, openToast } = useToast()
 
   const {
     handleSubmit,
@@ -42,13 +39,17 @@ export const LoginForm = () => {
   } = useForm<Pick<User, 'username'>>()
 
   const onSumbit = handleSubmit(({ username }) => {
-    dispatch(clearErrors())
     dispatch(login(username))
   })
 
   useEffect(() => {
-    if (serverErrors) openToast()
-  }, [serverErrors, openToast])
+    if (serverErrors)
+      openToast({
+        message: 'Este usuario no esta registrado',
+        severity: 'error',
+        onCloseCallback: () => dispatch(clearErrors()),
+      })
+  }, [serverErrors, openToast, dispatch])
 
   return (
     <form onSubmit={onSumbit} className="mt-4 py-4 ">

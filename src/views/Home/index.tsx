@@ -1,19 +1,25 @@
 // Vendors
-import { Button } from '@mui/material'
-import { useDispatch } from 'react-redux'
+import { Container, Stack } from '@mui/material'
+import { useSelector } from 'react-redux'
 
-// Store
-import { fetchAuthLogout } from 'reducers/authSlice'
+// Components
+import { Posts } from 'components'
+
+//Store
+import { RootState } from 'store'
 
 export const Home: React.FC = () => {
-  const dispatch = useDispatch()
+  const { posts, isLoading } = useSelector(
+    (state: RootState) => state.postReducer
+  )
 
   return (
-    <section>
-      <h1>Home</h1>
-      <Button onClick={() => dispatch(fetchAuthLogout())} variant="contained">
-        Cerrar Sesión
-      </Button>
+    <section id="home" className="mt-24">
+      <Container maxWidth="sm">
+        <Stack spacing={3}>
+          <Posts posts={posts} isLoading={isLoading} />
+        </Stack>
+      </Container>
     </section>
   )
 }

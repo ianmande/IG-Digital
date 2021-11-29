@@ -7,6 +7,7 @@ import { ThemeProvider } from '@mui/material'
 import RoutesContainer from 'components/containers/RoutesContainer'
 
 // Views
+import { Profile } from 'views/Profile'
 import { CreateAccount } from 'views/CreateAccount'
 import { Login } from 'views/Login'
 import { Home } from 'views/Home'
@@ -21,11 +22,19 @@ import 'assets/styles/styles.css'
 // Store
 import { browserReloadAuth } from 'reducers/authSlice'
 import { browserReloadUsers } from 'reducers/userSlice'
+import { browserReloadPosts } from 'reducers/postSlice'
+
+// Context
+import { ModalProvider } from 'context/ModalContext'
+
+// Components
+import { AppModal } from 'components/modal/Modal'
 
 const views = {
   Home,
   Login,
   CreateAccount,
+  Profile,
 }
 
 function App() {
@@ -34,12 +43,16 @@ function App() {
   useEffect(() => {
     dispatch(browserReloadAuth())
     dispatch(browserReloadUsers())
+    dispatch(browserReloadPosts())
   }, [dispatch])
 
   return (
     <>
       <ThemeProvider theme={theme}>
-        <RoutesContainer listRoutes={allRoutes} views={views} />
+        <ModalProvider>
+          <RoutesContainer listRoutes={allRoutes} views={views} />
+          <AppModal />
+        </ModalProvider>
       </ThemeProvider>
     </>
   )

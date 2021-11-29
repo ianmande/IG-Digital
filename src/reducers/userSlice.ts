@@ -13,11 +13,9 @@ import { ThunkAPI } from 'types/api'
 
 // Store
 import { searchItemLocal, setItemLocal } from 'utils'
-import { createToken } from 'utils/jwt'
 
 // Constants
-import { localKey, localKeyUsers } from 'config/constants'
-import { authenticated } from './authSlice'
+import { localKeyUsers } from 'config/constants'
 
 interface IUsers extends ServerStatus {
   users: User[]
@@ -30,6 +28,8 @@ const userAdapter = createEntityAdapter<IUsers>({})
 const initialState: IUsers = {
   users: [
     {
+      avatar:
+        'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/avatar-2-1583234102.jpg',
       username: 'ianmdz',
       name: 'ian',
       surname: 'mande',
@@ -56,15 +56,6 @@ export const createAccount = createAsyncThunk(
     const exitsUser = users.some(({ username }) => username === user.username)
 
     if (!exitsUser) {
-      const token = await createToken({ username: user.username })
-
-      setItemLocal(localKey, {
-        user,
-        token,
-      })
-
-      dispatch(authenticated())
-
       return user
     } else {
       throw Error('El usuario ya existe')
@@ -92,16 +83,23 @@ export const browserReloadUsers = createAsyncThunk(
 export const userSlice = createSlice({
   name: PREFIX,
   initialState: userAdapter.getInitialState(initialState),
-  reducers: {},
+  reducers: {
+    clearErrors(state) {
+      state.serverErrors = false
+      state.success = false
+    },
+  },
   extraReducers: (build) => {
     build.addCase(createAccount.pending, (state) => {
       state.isLoading = true
     })
     build.addCase(createAccount.fulfilled, (state, action: IAction) => {
       state.isLoading = initialState.isLoading
-      state.users = [...state.users, action.payload]
 
-      setItemLocal(localKeyUsers, state.users)
+      setItemLocal(localKeyUsers, [...state.users, action.payload])
+
+      state.users = [...state.users, action.payload]
+      state.success = true
     })
     build.addCase(createAccount.rejected, (state) => {
       state.isLoading = initialState.isLoading
@@ -114,6 +112,7 @@ export const userSlice = createSlice({
 })
 
 //Actions
+export const { clearErrors } = userSlice.actions
 
 // Reducer
 export default userSlice.reducer

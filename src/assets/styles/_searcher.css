@@ -1,0 +1,9 @@
+.search {
+  border-radius: 26px;
+  max-width: 180px;
+  @apply relative bg-black-light opacity-80 hover:opacity-100 ml-0 w-full sm:ml-2 sm:w-auto sm:max-w-none transition;
+}
+
+.search-icon-wrapper {
+  @apply h-full absolute pointer-events-none flex items-center justify-center px-4;
+}

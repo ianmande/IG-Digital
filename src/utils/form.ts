@@ -13,3 +13,9 @@ export const errorMessages: { [keyof: string]: string } = {
   minLength: 'Este campo debe tener como mínimo 3 caracteres',
   maxLength: 'Este campo debe tener como máximo 20 caracteres',
 }
+
+export const errorMessagesPosts: { [keyof: string]: string } = {
+  required: 'Debe completar este campo para continuar',
+  minLength: 'Este campo debe tener como mínimo 9 caracteres',
+  maxLength: 'Este campo debe tener como máximo 300 caracteres',
+}

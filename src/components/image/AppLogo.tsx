@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export function AppLogo(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <Link to="/">
+    <Link to="/" className="block w-min">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={154.493}

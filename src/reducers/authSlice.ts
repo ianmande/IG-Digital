@@ -24,6 +24,7 @@ const authAdapter = createEntityAdapter<Auth>({})
 const initialState: Auth = {
   isAuthenticated: false,
   user: {
+    avatar: '',
     name: '',
     surname: '',
     username: '',
