@@ -1,3 +1,15 @@
+## Envaroiments
+
+in this project son necesarias las siguentes variables ENV crear un archiv .env
+
+Para la api se usa Mocaroo =>> [https://www.mockaroo.com/](https://www.mockaroo.com/)
+
+REACT_APP_API_KEY = b226d560
+
+REACT_APP_API_URL = https://my.api.mockaroo.com/
+
+REACT_APP_NAME = Instagram Digital Tech
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -40,7 +52,3 @@ Instead, it will copy all the configuration files and the transitive dependencie
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
