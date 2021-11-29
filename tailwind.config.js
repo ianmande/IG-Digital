@@ -21,6 +21,9 @@ module.exports = {
       blue: {
         DEFAULT: '#3771C8',
       },
+      gray: {
+        DEFAULT: '#ffffff8a',
+      },
     },
     fontFamily: {
       lato: ['Lato'],
@@ -35,7 +38,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundPosition: ['hover'],
+    },
   },
   plugins: [],
 }
