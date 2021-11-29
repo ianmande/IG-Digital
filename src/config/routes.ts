@@ -28,4 +28,10 @@ export const allRoutes: routeInformation[] = [
     component: 'Login',
     type: typeRoutes.login,
   },
+  {
+    label: 'Usuario',
+    path: '/user/:username',
+    component: 'Profile',
+    type: typeRoutes.private,
+  },
 ]

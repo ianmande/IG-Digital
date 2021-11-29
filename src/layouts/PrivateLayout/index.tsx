@@ -16,7 +16,7 @@ export const PrivateLayout: React.FC<Props> = ({
   return (
     <>
       <Header />
-      <main className="">{children}</main>
+      <main className="mt-16 mb-8">{children}</main>
     </>
   )
 }
