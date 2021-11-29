@@ -1,0 +1,20 @@
+.heart {
+  @apply cursor-pointer w-12 h-12 bg-left bg-no-repeat hover:bg-right transition absolute z-10 bottom-3 left-4;
+  transform: scale(2);
+  background-image: url('../images/animation-like.png');
+  animation: heart-burst 1s infinity;
+  background-size: 2900%;
+}
+
+.is_liked {
+  animation: like 1.4s steps(28) 1 forwards;
+}
+
+@keyframes like {
+  from {
+    background-position: left;
+  }
+  to {
+    background-position: right;
+  }
+}
