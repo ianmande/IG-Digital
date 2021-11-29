@@ -10,7 +10,6 @@ import { UserAvatar } from 'components/image/Avatar'
 // store
 import { RootState } from 'store'
 import { upperFirst } from 'utils/text'
-import { height } from '@mui/system'
 
 export const Profile = () => {
   const { username } = useParams<{ username: string }>()
