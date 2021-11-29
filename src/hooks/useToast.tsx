@@ -6,27 +6,41 @@ import { AlertColor } from '@mui/material/Alert'
 import { Toast } from 'components'
 
 interface useToastProps {
-  open?: boolean
-  messages: string
+  isOpen?: boolean
+  message: string
   severity: AlertColor
+  onCloseCallback?: (() => void) | undefined
 }
 
-export const useToast = ({ messages, severity }: useToastProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+const toastStateInitial: useToastProps = {
+  isOpen: false,
+  message: '',
+  severity: 'success',
+}
+export const useToast = () => {
+  const [{ isOpen, message, severity, onCloseCallback }, setToast] =
+    useState<useToastProps>(toastStateInitial)
 
-  const openToast = useCallback(() => {
-    setIsOpen(true)
-  }, [])
+  const openToast = useCallback(
+    ({ message, severity, onCloseCallback }: useToastProps) => {
+      setToast({ isOpen: true, message, severity, onCloseCallback })
+    },
+    []
+  )
 
-  const closeToast = useCallback(() => {
-    setIsOpen(false)
-  }, [])
+  const closeToast = useCallback(
+    (callback?: () => void) => {
+      setToast(toastStateInitial)
+      if (onCloseCallback) onCloseCallback()
+    },
+    [onCloseCallback]
+  )
 
   return {
     Toast: (
       <Toast
-        open={isOpen}
-        message={messages}
+        open={Boolean(isOpen)}
+        message={message}
         severity={severity}
         handleClose={closeToast}
       />
