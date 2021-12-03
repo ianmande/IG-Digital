@@ -11,6 +11,7 @@ import { Profile } from 'views/Profile'
 import { CreateAccount } from 'views/CreateAccount'
 import { Login } from 'views/Login'
 import { Home } from 'views/Home'
+import { Search } from 'views/Search'
 
 // Contants
 import { allRoutes } from 'config/routes'
@@ -35,6 +36,7 @@ const views = {
   Login,
   CreateAccount,
   Profile,
+  Search
 }
 
 function App() {

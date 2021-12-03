@@ -7,3 +7,14 @@
 .search-icon-wrapper {
   @apply h-full absolute pointer-events-none flex items-center justify-center px-4;
 }
+
+.searcher {
+  color: 'inherit';
+}
+.searcher .MuiInputBase-input {
+  padding: 8px 8px 8px 0px;
+  padding-left: calc(1em + 32px);
+  -webkit-transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  width: 100%;
+}

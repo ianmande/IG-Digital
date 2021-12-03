@@ -34,4 +34,10 @@ export const allRoutes: routeInformation[] = [
     component: 'Profile',
     type: typeRoutes.private,
   },
+  {
+    label: 'Busqueda',
+    path: '/buscar/:textSearch',
+    component: 'Search',
+    type: typeRoutes.private,
+  },
 ]
