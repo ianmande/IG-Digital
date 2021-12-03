@@ -4,9 +4,8 @@ import { Box } from '@mui/system'
 
 // Components
 import { AddPosts } from './AddPosts'
-import { AppLogo } from 'components'
+import { AppLogo, Searcher } from 'components'
 import { UserActive } from './UserActive'
-import { Searcher } from './Search'
 
 // Hooks
 import { useMobile } from 'hooks/useMobile'
