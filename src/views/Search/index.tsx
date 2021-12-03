@@ -32,7 +32,7 @@ export const Search = () => {
         </div>
 
         <Stack spacing={3}>
-          <Posts posts={posts} isLoading={isLoading} />
+          <Posts posts={postsFound} isLoading={isLoading} />
         </Stack>
       </Container>
     </div>
