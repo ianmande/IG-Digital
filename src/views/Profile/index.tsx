@@ -51,7 +51,11 @@ export const Profile = () => {
       </div>
       <TabsPerfile status={statusTab} setStatus={setStatusTab} />
       <Stack spacing={3}>
-        <Posts posts={postByStatus} isLoading={postByStatus ? false : true} />
+        {postByStatus.length ? (
+          <Posts posts={postByStatus} isLoading={postByStatus ? false : true} />
+        ) : (
+          'No hay resultados'
+        )}
       </Stack>
     </Container>
   )
