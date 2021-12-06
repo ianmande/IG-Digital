@@ -21,6 +21,5 @@ export const searchPosts = (textSerch: string, arrayToSearch: Post[]) => {
       authorFullName.search(textToSerch) > -1
     )
   })
-
   return postsFound
 }

@@ -1,13 +1,13 @@
 // Vendors
-import { CardHeader, IconButton } from '@mui/material'
+import { CardHeader } from '@mui/material'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
 
 // Components
 import { Like } from './Like'
 import { UserAvatar } from 'components/image/Avatar'
+import {PostAction} from './PostAction'
 
 // Hooks
 import useTimeAgo from 'hooks/useTimago'
@@ -35,9 +35,12 @@ function PostPublic({ image, author, create_at, message }: PostProps) {
         title={authorName}
         subheader={timago}
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon className="text-white" />
-          </IconButton>
+          <PostAction
+            image={image}
+            author={author}
+            create_at={create_at}
+            message={message}
+          />
         }
         titleTypographyProps={{
           variant: 'subtitle1',
@@ -63,8 +66,7 @@ function PostPublic({ image, author, create_at, message }: PostProps) {
 
       <CardContent>
         <Typography variant="body1" className="text-gray">
-          {message ||
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore dolor, amet sint laborum voluptate iure incidunt optio! Consequatur quibusdam, enim nesciunt nihil nemo, sint ad, fuga tempore adipisci molestias perferendis.'}
+          {message || ''}
         </Typography>
       </CardContent>
       {/* <CardActions></CardActions> */}

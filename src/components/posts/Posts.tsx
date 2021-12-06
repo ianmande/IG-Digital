@@ -15,7 +15,7 @@ interface PostsProps {
 export function Posts({ isLoading, posts }: PostsProps) {
   return (
     <Stack spacing={3}>
-      {!isLoading && posts.length
+      {!isLoading && posts
         ? posts.map(({ author, create_at, image, message }, key) => (
             <PostPublic
               author={author}
