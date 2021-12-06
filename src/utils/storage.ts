@@ -19,7 +19,9 @@ export const searchItemLocal = (key: string) => {
  */
 export const setItemLocal = (key: string, item: any) => {
   localStorage.setItem(key, JSON.stringify(item))
+
   const newIitem = searchItemLocal(key)
+
   if (newIitem) {
     return newIitem
   }

@@ -36,7 +36,7 @@ const views = {
   Login,
   CreateAccount,
   Profile,
-  Search
+  Search,
 }
 
 function App() {

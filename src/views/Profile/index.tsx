@@ -1,5 +1,5 @@
 // Vendors
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { Container, Stack, Typography } from '@mui/material'
@@ -25,6 +25,9 @@ export const Profile = () => {
 
   const postByStatus = postsByUser.filter(({ status }) => status === statusTab)
 
+  useEffect(() => {
+    console.log('statusTab', postByStatus)
+  }, [postByStatus])
   return (
     <Container maxWidth="sm">
       <div className="px-9 py-6 bg-black-light mx-auto h-full max-h-96 rounded-b-3xl overflow-hidden mt-14">

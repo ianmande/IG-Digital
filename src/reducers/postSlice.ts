@@ -138,7 +138,8 @@ export const removedPosts = createAsyncThunk(
       }
     })
 
-    setItemLocal(localKeyPosts, postEdited)
+    console.log(setItemLocal('posts', postEdited))
+
     return postEdited
   }
 )
@@ -188,6 +189,7 @@ export const postSlice = createSlice({
     })
     build.addCase(removedPosts.fulfilled, (state, action: IAction) => {
       state.posts = action.payload
+      console.log('postEdited', action.payload)
       state.isLoading = false
     })
     build.addCase(restorePosts.pending, (state) => {
