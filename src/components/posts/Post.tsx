@@ -1,13 +1,13 @@
 // Vendors
-import { CardHeader, IconButton } from '@mui/material'
+import { CardHeader } from '@mui/material'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
 
 // Components
 import { Like } from './Like'
 import { UserAvatar } from 'components/image/Avatar'
+import { PostAction } from './PostAction'
 
 // Hooks
 import useTimeAgo from 'hooks/useTimago'
@@ -17,9 +17,12 @@ import { Post } from 'types/app'
 import { upperFirst } from 'utils/text'
 import { Link } from 'react-router-dom'
 
-type PostProps = Pick<Post, 'image' | 'author' | 'message' | 'create_at'>
+type PostProps = Pick<
+  Post,
+  'image' | 'author' | 'message' | 'create_at' | 'status'
+>
 
-function PostPublic({ image, author, create_at, message }: PostProps) {
+function PostPublic({ image, author, create_at, message, status }: PostProps) {
   const timago = useTimeAgo(new Date(create_at).getTime())
 
   const authorName = `${upperFirst(author.name)} ${upperFirst(author.surname)}`
@@ -35,9 +38,13 @@ function PostPublic({ image, author, create_at, message }: PostProps) {
         title={authorName}
         subheader={timago}
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon className="text-white" />
-          </IconButton>
+          <PostAction
+            image={image}
+            author={author}
+            create_at={create_at}
+            message={message}
+            status={status}
+          />
         }
         titleTypographyProps={{
           variant: 'subtitle1',
@@ -58,13 +65,13 @@ function PostPublic({ image, author, create_at, message }: PostProps) {
           create_at={create_at}
           message={message}
           image={image}
+          status={status}
         />
       </div>
 
       <CardContent>
         <Typography variant="body1" className="text-gray">
-          {message ||
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore dolor, amet sint laborum voluptate iure incidunt optio! Consequatur quibusdam, enim nesciunt nihil nemo, sint ad, fuga tempore adipisci molestias perferendis.'}
+          {message || ''}
         </Typography>
       </CardContent>
       {/* <CardActions></CardActions> */}

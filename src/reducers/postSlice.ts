@@ -31,7 +31,8 @@ const initialState: PostsReducer = {
   posts: [
     {
       image: '',
-      message: '',
+      message:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore dolor, amet sint laborum voluptate iure incidunt optio! Consequatur quibusdam, enim nesciunt nihil nemo, sint ad, fuga tempore adipisci molestias perferendis.',
       author: {
         avatar:
           'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/avatar-2-1583234102.jpg',
@@ -120,6 +121,50 @@ export const likeToPosts = createAsyncThunk(
   }
 )
 
+export const removedPosts = createAsyncThunk(
+  `${PREFIX}/REMOVED_POTS`,
+  (params: ViewPost, { getState, dispatch }: ThunkAPI) => {
+    const {
+      postReducer: { posts },
+    }: RootState = getState()
+
+    const postFoundIndex = posts.findIndex((post) => foundPost(params, post))
+
+    const postEdited = posts.map((currentPost, index) => {
+      if (postFoundIndex === index) {
+        return { ...currentPost, status: 'deleted' }
+      } else {
+        return currentPost
+      }
+    })
+
+    setItemLocal(localKeyPosts, postEdited)
+    return postEdited
+  }
+)
+
+export const restorePosts = createAsyncThunk(
+  `${PREFIX}/RESTORE_POTS`,
+  (params: ViewPost, { getState, dispatch }: ThunkAPI) => {
+    const {
+      postReducer: { posts },
+    }: RootState = getState()
+
+    const postFoundIndex = posts.findIndex((post) => foundPost(params, post))
+
+    const postEdited = posts.map((currentPost, index) => {
+      if (postFoundIndex === index) {
+        return { ...currentPost, status: 'published' }
+      } else {
+        return currentPost
+      }
+    })
+
+    setItemLocal(localKeyPosts, postEdited)
+    return postEdited
+  }
+)
+
 export const postSlice = createSlice({
   name: PREFIX,
   initialState: postAdapter.getInitialState(initialState),
@@ -137,6 +182,20 @@ export const postSlice = createSlice({
       state.posts = action.payload
       state.isLoading = false
       state.success = true
+    })
+    build.addCase(removedPosts.pending, (state) => {
+      state.isLoading = true
+    })
+    build.addCase(removedPosts.fulfilled, (state, action: IAction) => {
+      state.posts = action.payload
+      state.isLoading = false
+    })
+    build.addCase(restorePosts.pending, (state) => {
+      state.isLoading = true
+    })
+    build.addCase(restorePosts.fulfilled, (state, action: IAction) => {
+      state.posts = action.payload
+      state.isLoading = false
     })
     build.addCase(browserReloadPosts.fulfilled, (state, action: IAction) => {
       state.posts = action.payload

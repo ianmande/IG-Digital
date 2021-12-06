@@ -15,13 +15,14 @@ interface PostsProps {
 export function Posts({ isLoading, posts }: PostsProps) {
   return (
     <Stack spacing={3}>
-      {!isLoading && posts.length
-        ? posts.map(({ author, create_at, image, message }, key) => (
+      {!isLoading && posts
+        ? posts.map(({ author, create_at, image, message, status }, key) => (
             <PostPublic
               author={author}
               create_at={create_at}
               message={message}
               image={image}
+              status={status}
               key={`${key}-${author?.name}`}
             />
           ))

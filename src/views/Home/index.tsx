@@ -28,7 +28,10 @@ export const Home: React.FC = () => {
             ''
           )}
           <Stack spacing={3}>
-            <Posts posts={posts} isLoading={isLoading} />
+            <Posts
+              posts={posts.filter(({ status }) => status === 'published')}
+              isLoading={isLoading}
+            />
           </Stack>
         </>
       </Container>
