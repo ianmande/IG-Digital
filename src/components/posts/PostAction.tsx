@@ -24,6 +24,16 @@ export const PostAction = (props: ViewPost) => {
   const handleClose = useCallback(() => {
     setAnchorEl(null)
   }, [])
+
+  const handleClickMenuItem = useCallback(() => {
+    if (props.status === 'published') {
+      dispatch(removedPosts(props))
+    } else if (props.status === 'deleted') {
+      dispatch(restorePosts(props))
+    }
+    handleClose()
+  }, [dispatch, handleClose, props])
+
   return (
     <>
       <IconButton
@@ -45,14 +55,7 @@ export const PostAction = (props: ViewPost) => {
           className: 'bg-black-light text-white',
         }}
       >
-        <MenuItem
-          onClick={() => {
-            if (props.status === 'published') {
-              dispatch(removedPosts(props))
-            }
-            dispatch(restorePosts(props))
-          }}
-        >
+        <MenuItem onClick={handleClickMenuItem}>
           {props.status === 'published' ? (
             <>
               <DeleteIcon /> Borrar
