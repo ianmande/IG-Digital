@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 // Components
 import { Like } from './Like'
 import { UserAvatar } from 'components/image/Avatar'
-import {PostAction} from './PostAction'
+import { PostAction } from './PostAction'
 
 // Hooks
 import useTimeAgo from 'hooks/useTimago'
@@ -17,9 +17,12 @@ import { Post } from 'types/app'
 import { upperFirst } from 'utils/text'
 import { Link } from 'react-router-dom'
 
-type PostProps = Pick<Post, 'image' | 'author' | 'message' | 'create_at'>
+type PostProps = Pick<
+  Post,
+  'image' | 'author' | 'message' | 'create_at' | 'status'
+>
 
-function PostPublic({ image, author, create_at, message }: PostProps) {
+function PostPublic({ image, author, create_at, message, status }: PostProps) {
   const timago = useTimeAgo(new Date(create_at).getTime())
 
   const authorName = `${upperFirst(author.name)} ${upperFirst(author.surname)}`
@@ -40,6 +43,7 @@ function PostPublic({ image, author, create_at, message }: PostProps) {
             author={author}
             create_at={create_at}
             message={message}
+            status={status}
           />
         }
         titleTypographyProps={{
@@ -61,6 +65,7 @@ function PostPublic({ image, author, create_at, message }: PostProps) {
           create_at={create_at}
           message={message}
           image={image}
+          status={status}
         />
       </div>
 

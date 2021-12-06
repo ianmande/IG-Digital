@@ -4,9 +4,10 @@ import { IconButton, Menu, MenuItem } from '@mui/material'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useDispatch } from 'react-redux'
+import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
 
 // Store
-import { removedPosts } from 'reducers/postSlice'
+import { removedPosts, restorePosts } from 'reducers/postSlice'
 
 // Types
 import { ViewPost } from 'types/app'
@@ -44,8 +45,23 @@ export const PostAction = (props: ViewPost) => {
           className: 'bg-black-light text-white',
         }}
       >
-        <MenuItem onClick={() => dispatch(removedPosts(props))}>
-          <DeleteIcon /> Borrar
+        <MenuItem
+          onClick={() => {
+            if (props.status === 'published') {
+              dispatch(removedPosts(props))
+            }
+            dispatch(restorePosts(props))
+          }}
+        >
+          {props.status === 'published' ? (
+            <>
+              <DeleteIcon /> Borrar
+            </>
+          ) : (
+            <>
+              <SettingsBackupRestoreIcon /> Restaurar
+            </>
+          )}
         </MenuItem>
       </Menu>
     </>

@@ -121,11 +121,6 @@ export const likeToPosts = createAsyncThunk(
   }
 )
 
-/**
- * Verificar si el usuario sigue
- * logeado cuando se recarga el navegador
- */
-
 export const removedPosts = createAsyncThunk(
   `${PREFIX}/REMOVED_POTS`,
   (params: ViewPost, { getState, dispatch }: ThunkAPI) => {
@@ -135,13 +130,38 @@ export const removedPosts = createAsyncThunk(
 
     const postFoundIndex = posts.findIndex((post) => foundPost(params, post))
 
-    return posts.map((currentPost, index) => {
+    const postEdited = posts.map((currentPost, index) => {
       if (postFoundIndex === index) {
         return { ...currentPost, status: 'deleted' }
       } else {
         return currentPost
       }
     })
+
+    setItemLocal(localKeyPosts, postEdited)
+    return postEdited
+  }
+)
+
+export const restorePosts = createAsyncThunk(
+  `${PREFIX}/RESTORE_POTS`,
+  (params: ViewPost, { getState, dispatch }: ThunkAPI) => {
+    const {
+      postReducer: { posts },
+    }: RootState = getState()
+
+    const postFoundIndex = posts.findIndex((post) => foundPost(params, post))
+
+    const postEdited = posts.map((currentPost, index) => {
+      if (postFoundIndex === index) {
+        return { ...currentPost, status: 'published' }
+      } else {
+        return currentPost
+      }
+    })
+
+    setItemLocal(localKeyPosts, postEdited)
+    return postEdited
   }
 )
 
@@ -167,6 +187,13 @@ export const postSlice = createSlice({
       state.isLoading = true
     })
     build.addCase(removedPosts.fulfilled, (state, action: IAction) => {
+      state.posts = action.payload
+      state.isLoading = false
+    })
+    build.addCase(restorePosts.pending, (state) => {
+      state.isLoading = true
+    })
+    build.addCase(restorePosts.fulfilled, (state, action: IAction) => {
       state.posts = action.payload
       state.isLoading = false
     })
